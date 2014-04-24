@@ -252,7 +252,8 @@ do_build_payload(Params, Content_Available) when Content_Available == false ->
 do_build_payload([{Key,Value}|Params], Payload) ->
   case Value of
     Value when is_list(Value); is_binary(Value) ->
-      do_build_payload(Params, [{atom_to_binary(Key, utf8), unicode:characters_to_binary(Value)} | Payload]);
+      %do_build_payload(Params, [{atom_to_binary(Key, utf8), unicode:characters_to_binary(Value)} | Payload]);
+      do_build_payload(Params, [{atom_to_binary(Key, utf8), list_to_binary(Value)} | Payload]);
     Value when is_integer(Value) ->
       do_build_payload(Params, [{atom_to_binary(Key, utf8), Value} | Payload]);
     #loc_alert{action = Action,
